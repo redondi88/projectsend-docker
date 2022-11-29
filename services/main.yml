@@ -1,0 +1,23 @@
+services:
+  enabled:
+    build:
+      context: '../../ProjectSend/'
+      dockerfile: ../projectsend-docker/services/Dockerfile.projectsend
+    volumes:
+      - ../../ProjectSend:/var/www/html
+      - node_data:/var/www/html/node_modules/
+    #command: npm run start:dev
+    #env_file:
+    #  - ../../../location/.env
+    #ports:
+    #  - 80:80
+
+    stdin_open: true # docker run -i
+    tty: true # docker run -t
+  disabled:
+    build:
+      context: '../dummy'
+    ports:
+      - 8000:80
+    environment:
+      SERVICE_NAME: ProjectSendDisabled

@@ -1,0 +1,13 @@
+#obsolete on v3 of docker copose
+services:
+  enabled:
+    image: mailhog/mailhog
+    logging:
+      driver: 'none'  # disable saving logs
+    ports:
+      - 1025:1025 # smtp server
+  disabled:
+    build:
+      context: './dummy'
+    environment:
+      SERVICE_NAME: MailerDisabled

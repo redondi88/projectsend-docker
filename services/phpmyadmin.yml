@@ -1,0 +1,15 @@
+services:
+  enabled:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+  disabled:
+    build:
+      context: './dummy'
+    ports:
+      - 8000:80
+    environment:
+      SERVICE_NAME: PHPMyAdminDisabled

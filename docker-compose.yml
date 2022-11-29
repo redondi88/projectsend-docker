@@ -1,0 +1,41 @@
+version: '3.6'
+services:
+ # Core Services
+  router:
+    extends:
+      file: ./services/router/router.yml
+      service: enabled
+    depends_on:
+      - mailer
+      - main
+  db:
+    image: mysql:5.7
+    restart: always
+    volumes:
+        #- ./init.sql:/data/application/init.sql
+        - ./init.sql:/docker-entrypoint-initdb.d/1.sql
+    environment:
+      MYSQL_DATABASE: db
+      # So you don't have to use root, but you can if you like
+      MYSQL_USER: user
+      # You can use whatever password you like
+      MYSQL_PASSWORD: password
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: password
+      #MYSQL_ROOT_HOST: '%'
+  mailer:
+    extends:
+      file: ./services/mailer.yml
+      service: $MAILER
+  main:
+    extends:
+      file: ./services/main.yml
+      service: $PROJECTSEND
+  phpmyadmin:
+    extends:
+      file: ./services/phpmyadmin.yml
+      service: $PHPMYADMIN
+
+volumes:
+  db_data:
+  node_data:
