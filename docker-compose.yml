@@ -11,9 +11,11 @@ services:
   db:
     image: mysql:5.7
     restart: always
+    command: --disable-partition-engine-check
     volumes:
         #- ./init.sql:/data/application/init.sql
         - ./init.sql:/docker-entrypoint-initdb.d/1.sql
+        - db_data:/var/lib/mysql
     environment:
       MYSQL_DATABASE: db
       # So you don't have to use root, but you can if you like

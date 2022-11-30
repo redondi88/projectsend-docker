@@ -7,8 +7,8 @@ services:
       - ../../ProjectSend:/var/www/html
       - node_data:/var/www/html/node_modules/
     #command: npm run start:dev
-    #env_file:
-    #  - ../../../location/.env
+    env_file:
+      - ../shared.env
     #ports:
     #  - 80:80
 

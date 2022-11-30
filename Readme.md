@@ -39,10 +39,14 @@ This repo contains configuration to add a Docker functionality to ProjectSend in
 
 ## Execution
 - First step is to modify your local `.env`
-- run `docker-compose build` to build all configured services
-- once db is restored run `docker-compose start` or `docker-compose up -d`to start docker in daemon mode.
+- run `docker-compose build` to build all configured services, this could take up to 10m.
+- run `docker-compose start` or `docker-compose up -d`to start docker in daemon mode.
+- on your browser go to http://main.app.local 
 
 
 ## Notes
 - Try to avoid leaving unecessary services running.
 - Minimum Ammount of Ram allocated for Docker should be 4GB.
+- The initial startup of MySql takes some time (about 5m) depending on the hardware resources allocated to Docker.
+- You will be able to use the app once the DB container starts up. The container logs will have the following message: `mysqld: ready for connections.`
+- both HTTP and HTTPS work locally. Since the certificate is self-signed you will need to trust the signer before you can open HTTPS.
