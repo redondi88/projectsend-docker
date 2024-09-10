@@ -1,0 +1,29 @@
+services:
+    enabled:
+        image: dnknth/openldap
+        ports:
+            - 127.0.0.1:389:389
+        volumes:
+            - ./data:/var/restore
+        environment:
+            DOMAIN: flintstones.com
+            DEBUG: 256
+            ACCESS_RULES: |
+                access to attrs=userPassword
+                    by anonymous auth
+                    by self write
+                    by * none
+                access to *
+                    by * read
+        restart: unless-stopped
+        healthcheck:
+            test: "ldapsearch -x -b dc=flintstones,dc=com cn > /dev/null"
+            interval: 30s
+            retries: 2
+            timeout: 2s
+
+    disabled:
+        build:
+          context: './dummy'
+        environment:
+          SERVICE_NAME: LDAP-UI-Disabled

@@ -1,0 +1,21 @@
+services:
+    enabled:
+        image: dnknth/ldap-ui
+        ports:
+            - 127.0.0.1:5000:5000
+        environment:
+            LDAP_URL: "ldap://ldap/"
+            BASE_DN: "dc=flintstones,dc=com"
+            BIND_DN: "cn=Admin,dc=flintstones,dc=com"
+            BIND_PASSWORD: bedrock
+        restart: unless-stopped
+        healthcheck:
+            test: "wget -q -O /dev/null http://localhost:5000"
+            interval: 30s
+            retries: 2
+            timeout: 2s
+    disabled:
+        build:
+          context: './dummy'
+        environment:
+          SERVICE_NAME: LDAP-UI-Disabled

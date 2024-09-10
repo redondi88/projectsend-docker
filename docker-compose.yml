@@ -38,6 +38,32 @@ services:
       file: ./services/phpmyadmin.yml
       service: $PHPMYADMIN
 
+  ldap:
+    extends:
+      file: ./services/ldap/ldap.yml
+      service: $LDAP
+  ldap-ui:
+    extends:
+      file: ./services/ldap/ldap-ui.yml
+      service: $LDAP
+  openldap-ui:
+    image: wheelybird/ldap-user-manager:v1.10
+    container_name: openldap-ui
+    environment:
+      - LDAP_ADMIN_BIND_DN=cn=Admin,dc=flintstones,dc=com
+      - LDAP_URI=ldap://ldap
+      - LDAP_BASE_DN=dc=flintstones,dc=com
+      - LDAP_REQUIRE_STARTTLS=FALSE
+      - LDAP_ADMINS_GROUP=admins
+      - LDAP_ADMIN_BIND_PWD=bedrock
+      - LDAP_IGNORE_CERT_ERRORS=true
+      - NO_HTTPS=TRUE
+      - PASSWORD_HASH=SSHA
+      - SERVER_HOSTNAME=localhost:18080
+    depends_on:
+      - ldap
+    ports:
+      - 18080:80
 volumes:
   db_data:
   node_data:

@@ -7,10 +7,12 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     libpng-dev \
+    libldap2-dev \
     --no-install-recommends nodejs \
     && rm -rf /var/lib/apt/lists/*
 
-RUN docker-php-ext-install gd pdo pdo_mysql
+RUN docker-php-ext-install gd pdo pdo_mysql ldap
+RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/
 
 RUN npm install -g gulp
 RUN npm link gulp
