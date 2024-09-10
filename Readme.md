@@ -5,8 +5,8 @@ This repo contains configuration to add a Docker functionality to ProjectSend in
 ### Services
 | Service                | Stack      | Port | Description                               | Default |
 | ---------------------- | :--------- | ---: | :---------------------------------------- |---------|
-| mysql                  | mysql 5.7  | 3306 |                                           | Yes     |
-| phpmyadmin             | phpmyadmin | 80   | phpmyadmin                                | No      |
+| mysql                  | mysql 8.4.2  | 3306 |                                           | Yes     |
+| phpmyadmin             | phpmyadmin | 8080   | phpmyadmin                                | No      |
 | main                   | ProjectSend| 80   | ProjectSend Service running on PHP-fpm    | Yes     |
 | mailer                 | MailHog    | 1025/8025   | MailHog as a dummy SMTP server    | No     |
 | router                 | NGINX      |   80 / 443 | proxy service for local dev         | Yes     |
